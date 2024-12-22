@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Post your very good room here!</h1>
+    <form method="post" action="#" th:action="@{/posthotel}" th:object="${hotelRoom}">
+        <p>name</p> <input type="text" th:field="*{hotelName}"/>
+        <p>city</p> <input type="text" th:field="*{city}"/>
+        <p>price</p> <input type="text" th:field="*{price}"/>
+        <p>number</p> <input type="text" th:field="*{roomNumber}"/>
+
+        <input type="submit" value="post"/>
+    </form>
+</body>
+</html>

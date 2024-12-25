@@ -1,11 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Getting Started: Serving Web Content</title> 
+    <title>Search</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="search.js"></script>
 </head>
 <body>
     <h1>Search for your room here!</h1>
+
+    <div><p>Min price</p><input id="minPrice" type="number"></input></div>
+    <div><p>Max price</p><input id="maxPrice" type="number"></input></div>
+
+    <div><p>Min stars</p><input id="minStars" type="number"></input></div>
+    <div><p>Max stars</p><input id="maxStars" type="number"></input></div>
+
+    <div><p>City</p><input id="city" type="text"></input></div>
+    <div><p>Room Id</p><input id="roomId" type="number"></input></div>
+
+    <button onclick="applyFilters()">Search</button>
     <div>
         <div th:utext="${rooms}" />
     </div>

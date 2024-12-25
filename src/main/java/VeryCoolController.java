@@ -16,10 +16,10 @@ public class VeryCoolController {
 
 	@GetMapping("/search")
 	public String search(
-        @RequestParam(name="minStars", required=false, defaultValue="-1") int minStars,
-        @RequestParam(name="maxStars", required=false, defaultValue="-1") int maxStars,
-        @RequestParam(name="minPrice", required=false, defaultValue="-1") int minPrice,
-        @RequestParam(name="maxPrice", required=false, defaultValue="-1") int maxPrice,
+        @RequestParam(name="minStars", required=false, defaultValue="0") int minStars,
+        @RequestParam(name="maxStars", required=false, defaultValue="9999999") int maxStars,
+        @RequestParam(name="minPrice", required=false, defaultValue="0") int minPrice,
+        @RequestParam(name="maxPrice", required=false, defaultValue="9999999") int maxPrice,
         @RequestParam(name="city", required=false, defaultValue="") String city,
         @RequestParam(name="id", required=false, defaultValue="-1") int id,
 
@@ -31,8 +31,10 @@ public class VeryCoolController {
 
         Filter f = new FilterAlways();
         Filter filter = f;
-        if(minStars != -1) filter = filter.then(new FilterStars(minStars, maxStars));
-        if(minPrice != -1) filter = filter.then(new FilterPrice(minPrice, maxPrice));
+
+        filter = filter.then(new FilterStars(minStars, maxStars));
+        filter = filter.then(new FilterPrice(minPrice, maxPrice));
+
         if(city.length() != 0) filter = filter.then(new FilterCity(city));
         if(id != -1) filter = filter.then(new FilterId(id));
 

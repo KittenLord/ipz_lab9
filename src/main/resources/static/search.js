@@ -36,6 +36,14 @@ function applyFilters() {
     populateInputs();
 
     let link = "/search?";
+
+    let selectedOrder = document.querySelector('input[name="searchOrder"]:checked');
+    let order = "";
+    if(selectedOrder === null) order = undefined;
+    else                       order = selectedOrder.value;
+
+    console.log(order);
+
     if(id !== undefined) link += `id=${id}`;
     else {
         if(minPrice !== undefined) link += `minPrice=${minPrice}&`;

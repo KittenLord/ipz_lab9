@@ -3,8 +3,10 @@
 <head> 
     <title>Post room</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="/home"><h1>Home</h1></a>
     <h1>Post your very good room here!</h1>
     <form method="post" action="#" th:action="@{/posthotel}" th:object="${hotelRoom}">
         <p>name</p> <input type="text" th:field="*{hotelName}"/>

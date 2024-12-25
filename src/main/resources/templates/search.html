@@ -4,23 +4,45 @@
     <title>Search</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="search.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a href="/home"><h1>Home</h1></a>
     <h1>Search for your room here!</h1>
 
-    <div><p>Min price</p><input id="minPrice" type="number"></input></div>
-    <div><p>Max price</p><input id="maxPrice" type="number"></input></div>
+    <div class = "searchFilterBlock">
+    <div class="searchFilterBlock"><p>Min price</p><input id="minPrice" type="number"></input></div>
+    <div class="searchFilterBlock"><p>Max price</p><input id="maxPrice" type="number"></input></div>
+    </div>
+                                               
+    <div class = "searchFilterBlock">
+    <div class="searchFilterBlock"><p>Min stars</p><input id="minStars" type="number"></input></div>
+    <div class="searchFilterBlock"><p>Max stars</p><input id="maxStars" type="number"></input></div>
+    </div>
 
-    <div><p>Min stars</p><input id="minStars" type="number"></input></div>
-    <div><p>Max stars</p><input id="maxStars" type="number"></input></div>
+    <div class = "searchFilterBlock">
+    <div class="searchFilterBlock"><p>City</p><input id="city" type="text"></input></div>
+    <div class="searchFilterBlock"><p>Room Id</p><input id="roomId" type="number"></input></div>
+    </div>
 
-    <div><p>City</p><input id="city" type="text"></input></div>
-    <div><p>Room Id</p><input id="roomId" type="number"></input></div>
+    <div id="searchRadios">
+        <div>
+        <input type="radio" id="searchRadio_stars" name="searchOrder" value="stars"/>
+        <label for="searchRadio_stars">Sort by stars</label>
+        </div>
 
-    <div><button onclick="search()">Search</button></div>
+        <div>
+        <input type="radio" id="searchRadio_price" name="searchOrder" value="price"/>
+        <label for="searchRadio_price">Sort by price</label>
+        </div>
+    </div>
 
+
+    <div id="searchButtons">
     <button onclick="prevPage()"> &lt; </button>
+    <button onclick="search()">Search</button>
     <button onclick="nextPage()"> &gt; </button>
+    </div>
 
     <div>
         <div th:utext="${rooms}" />

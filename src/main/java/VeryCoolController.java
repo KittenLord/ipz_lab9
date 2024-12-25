@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import java.util.Random;
 
 @Controller
 public class VeryCoolController {
@@ -42,13 +43,16 @@ public class VeryCoolController {
         Database db = Database.get();
         List<HotelRoom> result = db.getFiltered(f);
         Iterator iterator;
-        if(order == "stars") iterator = new IteratorStars(result);
-        else iterator = new IteratorStars(result);
+
+             if(order.equals("stars"))        iterator = new IteratorStars(result);
+        else if(order.equals("price"))   iterator = new IteratorPrice(result);
+
+        else                        iterator = new IteratorStars(result);
 
         iterator.skipn(pageSize * page);
         List<HotelRoom> rooms = iterator.nextn(pageSize);
 
-        String component = "<div><a href=\"/room?id=%d\"><h2>Hotel %s at city %s</h2></a>   <p>★ %d</p>   <p>$ %d</p></div>";
+        String component = "<div class=\"listRoom\"><a href=\"/room?id=%d\"><h2>Hotel %s at city %s</h2></a>   <p>★ %d</p>   <p>$ %d</p></div>";
         String roomComponents = "";
 
         for(HotelRoom room : rooms) {
@@ -132,5 +136,36 @@ public class VeryCoolController {
 	public String home() {
 		return "index";
 	}
+
+    @GetMapping("/DEBUG_POPULATE")
+    public String debugGenerate() {
+       Random rng = new Random();
+
+        Database db = Database.get();
+        String[] hotelWords = { "Aboba", "Kamaz", "Pivo", "Chupa", "Zebra", "Kaban" };
+        String[] cities = { "Kiev", "New York", "Odessa", "Tokyo", "Beijing", "Berlin" };
+        for(int hotel = 0; hotel < 30; hotel++) {
+            String word1 = hotelWords[rng.nextInt(hotelWords.length)];
+            String word2 = hotelWords[rng.nextInt(hotelWords.length)];
+            String hotelName = word1 + word2;
+
+            int amountOfRooms = rng.nextInt(5) + 5;
+            int maxStars = rng.nextInt(3) + 6;
+            int priceMultiplier = rng.nextInt(3) + 10;
+            int roomOffset = rng.nextInt(30) + 30;
+            for(int roomIndex = 0; roomIndex < amountOfRooms; roomIndex++) {
+                HotelRoom room = new HotelRoom();
+                room.hotelName = hotelName;
+                room.city = cities[rng.nextInt(cities.length)];
+                room.stars = rng.nextInt(maxStars) + 1;
+                room.price = (rng.nextInt(4) + 20) * priceMultiplier;
+                room.isBooked = false;
+                room.roomNumber = roomOffset++;
+                db.addRoom(room);
+            }
+        }
+
+        return "index";
+    }
 
 }

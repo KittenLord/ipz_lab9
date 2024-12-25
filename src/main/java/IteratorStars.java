@@ -8,7 +8,7 @@ public class IteratorStars extends Iterator {
     private int index;
 
     public IteratorStars(List<HotelRoom> list) {
-        Collections.sort(list, (a, b) -> Integer.compare(a.stars, b.stars));
+        Collections.sort(list, (a, b) -> Integer.compare(b.stars, a.stars)); // descending
         this.list = list;
     }
 

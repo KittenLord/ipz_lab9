@@ -4,15 +4,20 @@
     <title>Your very good room</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="book.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div th:utext="${number}" />
+    <a href="/home"><h1>Home</h1></a>
 
-    <div th:utext="${stars}" />
-    <div th:utext="${price}" />
+    <h1>A very cool room</h1>
 
-    <div th:utext="${city}" />
-    <div th:utext="${hotelName}" />
+    <div class="roomInfoItem">Room number: <div th:utext="${number}" /></div>
+
+    <div class="roomInfoItem">★ <div th:utext="${stars}" /></div>
+    <div class="roomInfoItem">$ <div th:utext="${price}" /></div>
+
+    <div class="roomInfoItem">City: <div th:utext="${city}" /></div>
+    <div class="roomInfoItem">Hotel: <div th:utext="${hotelName}" /></div>
 
     <button onclick="book()">Book</button>
 </body>

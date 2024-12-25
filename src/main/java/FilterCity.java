@@ -9,7 +9,7 @@ public class FilterCity extends Filter {
     }
 
     public boolean check(HotelRoom room) {
-        return room.city == city;
+        return room.city.equals(city);
     }
 
 }

@@ -1,0 +1,39 @@
+.searchFilterBlock {
+    display: flex;
+    flex-direction: row;
+}
+
+.roomInfoItem {
+    display: flex;
+    flex-direction: row;
+}
+
+#searchRadios {
+    display: flex;
+    flex-direction: row;
+}
+
+.searchFilterBlock > * {
+    padding: 10px;
+}
+
+.listRoom {
+    border: solid black;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#searchButtons {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#searchRadios {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}

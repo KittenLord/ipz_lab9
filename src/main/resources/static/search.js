@@ -6,7 +6,9 @@ let maxStars = undefined;
 
 let city = undefined;
 let id = undefined; // room id, ignore all other args
-let page = undefined; // switch pages
+
+let page = localStorage.getItem("page");
+if(page === null) page = 0;
 
 let order = undefined; // sorting order
 
@@ -48,4 +50,22 @@ function applyFilters() {
     }
 
     location.href = link;
+}
+
+function search() {
+    applyFilters();
+    localStorage.setItem("page", 0);
+}
+
+function nextPage() {
+    page++;
+    localStorage.setItem("page", page);
+    applyFilters();
+}
+
+function prevPage() {
+    page--;
+    if(page < 0) page = 0;
+    localStorage.setItem("page", page);
+    applyFilters();
 }

@@ -32,6 +32,7 @@ public class VeryCoolController {
         Filter f = new FilterAlways();
         Filter filter = f;
 
+        filter = filter.then(new FilterIsBooked(false));
         filter = filter.then(new FilterStars(minStars, maxStars));
         filter = filter.then(new FilterPrice(minPrice, maxPrice));
 
@@ -47,15 +48,69 @@ public class VeryCoolController {
         iterator.skipn(pageSize * page);
         List<HotelRoom> rooms = iterator.nextn(pageSize);
 
-        String component = "<div><h2>Hotel %s at city %s</h2>   <p>★ %d</p>   <p>$ %d</p></div>";
+        String component = "<div><a href=\"/room?id=%d\"><h2>Hotel %s at city %s</h2></a>   <p>★ %d</p>   <p>$ %d</p></div>";
         String roomComponents = "";
 
         for(HotelRoom room : rooms) {
-            roomComponents += String.format(component, room.hotelName, room.city, room.stars, room.price);
+            roomComponents += String.format(component, room.id, room.hotelName, room.city, room.stars, room.price);
         }
 
         model.addAttribute("rooms", roomComponents);
 		return "search";
+	}
+
+	@GetMapping("/room")
+	public String room(
+        @RequestParam(name="id", required=false, defaultValue="0") int id,
+        Model model
+    ) {
+        if(id == 0) return "index"; // TODO: error
+
+        Filter filter = new FilterId(id);
+
+        Database db = Database.get();
+        List<HotelRoom> result = db.getFiltered(filter);
+        if(result.size() <= 0) {
+            return "index"; // TODO: error?
+        }
+
+        HotelRoom room = result.get(0);
+
+        model.addAttribute("number", room.roomNumber);
+
+        model.addAttribute("stars", room.stars);
+        model.addAttribute("price", room.price);
+
+        model.addAttribute("city", room.city);
+        model.addAttribute("hotelName", room.hotelName);
+
+		return "room";
+	}
+
+	@GetMapping("/book")
+	public String book(
+        @RequestParam(name="id", required=false, defaultValue="0") int id,
+        Model model
+    ) {
+        if(id == 0) return "index"; // TODO: error
+
+        Filter filter = new FilterId(id);
+
+        Database db = Database.get();
+        List<HotelRoom> result = db.getFiltered(filter);
+        if(result.size() <= 0) {
+            return "index"; // TODO: error?
+        }
+
+        HotelRoom room = result.get(0);
+
+        if(room.isBooked) return "index";
+
+        // NOTE: contact the hotel here
+        room.isBooked = true;
+        db.saveDatabase();
+
+		return "index";
 	}
 
 	@GetMapping("/posthotel")
@@ -68,6 +123,7 @@ public class VeryCoolController {
 	@PostMapping("/posthotel")
 	public String postHotelSubmit(@ModelAttribute HotelRoom hotelRoom, Model model) {
         Database db = Database.get();
+        hotelRoom.isBooked = false;
         db.addRoom(hotelRoom);
 		return "index";
 	}

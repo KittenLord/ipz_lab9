@@ -8,9 +8,11 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.lang.Exception;
 import java.nio.charset.Charset;
+import java.util.Random;
 
 public class Database {
 
+    private static Random random;
     private static Database instance;
     private Database() {}
 
@@ -24,6 +26,7 @@ public class Database {
     private static void loadDatabase() {
         try{
 
+        random = new Random();
         instance = new Database();
 
         File file = new File(databasePath);
@@ -39,8 +42,6 @@ public class Database {
         }catch(Exception e) { System.out.println("I couldn't care less"); System.exit(1); }
     }
 
-
-
     private List<HotelRoom> data;
 
     public List<HotelRoom> getFiltered(Filter filter) {
@@ -52,9 +53,12 @@ public class Database {
     }
 
     public void addRoom(HotelRoom room) {
-
+        room.id = random.nextInt(1000000) + 1;
         data.add(room);
+        saveDatabase();
+    }
 
+    public void saveDatabase() {
         File file = new File(databasePath);
         Gson g = new Gson();
         HotelRoom[] array = new HotelRoom[data.size()];

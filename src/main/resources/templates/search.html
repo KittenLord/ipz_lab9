@@ -17,7 +17,11 @@
     <div><p>City</p><input id="city" type="text"></input></div>
     <div><p>Room Id</p><input id="roomId" type="number"></input></div>
 
-    <button onclick="applyFilters()">Search</button>
+    <div><button onclick="search()">Search</button></div>
+
+    <button onclick="prevPage()"> &lt; </button>
+    <button onclick="nextPage()"> &gt; </button>
+
     <div>
         <div th:utext="${rooms}" />
     </div>

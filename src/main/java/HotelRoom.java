@@ -3,6 +3,8 @@ package work9;
 public class HotelRoom {
 
     public int id;
+    public void setId(int id) { this.id = id; }
+    public int getId() { return this.id; }
 
     public String hotelName;
     public void setHotelName(String hotelName) { this.hotelName = hotelName; }
@@ -20,6 +22,9 @@ public class HotelRoom {
     public void setPrice(int price) { this.price = price; }
     public int getPrice() { return price; }
 
+    public boolean isBooked;
+    public void setIsBooked(boolean isBooked) { this.isBooked = isBooked; }
+    public boolean getIsBooked() { return this.isBooked; }
 
     public int roomNumber;
     public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }

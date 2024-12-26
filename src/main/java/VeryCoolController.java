@@ -185,8 +185,8 @@ public class VeryCoolController {
        Random rng = new Random();
 
         Database db = Database.get();
-        String[] hotelWords = { "Aboba", "Kamaz", "Pivo", "Chupa", "Zebra", "Kaban" };
-        String[] cities = { "Kiev", "New York", "Odessa", "Tokyo", "Beijing", "Berlin" };
+        String[] hotelWords = { "Aboba", "Kamaz", "Pivo", "Chupa", "Zebra", "Kaban", "Cool", "Amogus", "Guga", "Krab", "Cabra", "Kavun", "Zhizha" };
+        String[] cities = { "Kyiv", "New York", "Odessa", "Tokyo", "Beijing", "Berlin", "Rome", "Madrid", "Chernobyl", "Kabanograd", "Aboba town" };
         for(int hotel = 0; hotel < 30; hotel++) {
             String word1 = hotelWords[rng.nextInt(hotelWords.length)];
             String word2 = hotelWords[rng.nextInt(hotelWords.length)];

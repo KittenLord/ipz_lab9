@@ -11,11 +11,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Random;
 
 @Controller
+
+/**
+ *  The class that routes the requests
+ */
 public class VeryCoolController {
 
+    /**
+     *  The amount of rooms that you can see per page
+     */
     private static final int pageSize = 10;
 
 	@GetMapping("/search")
+    /**
+     *  A method that routes the request to the search page, does the search idk i dont care
+     *  @param minStars Min stars
+     *  @param maxStars Max stars
+     *  @param minPrice Min price
+     *  @param maxPrice Max price
+     *  @param city City
+     *  @param id Id (if specified ignore everything else)
+     *  @param page Page (skip page*pageSize items)
+     *  @param order The way to order
+     *  @param model Model
+     */
 	public String search(
         @RequestParam(name="minStars", required=false, defaultValue="0") int minStars,
         @RequestParam(name="maxStars", required=false, defaultValue="9999999") int maxStars,
@@ -64,6 +83,11 @@ public class VeryCoolController {
 	}
 
 	@GetMapping("/room")
+    /**
+     *  The route to check the details of the room
+     *  @param id The room id
+     *  @param model Model
+     */
 	public String room(
         @RequestParam(name="id", required=false, defaultValue="0") int id,
         Model model
@@ -92,6 +116,11 @@ public class VeryCoolController {
 	}
 
 	@GetMapping("/book")
+    /**
+     *  A route that books the room and redirects you to home page
+     *  @param id The id of the room to book
+     *  @param model Model
+     */
 	public String book(
         @RequestParam(name="id", required=false, defaultValue="0") int id,
         Model model
@@ -118,13 +147,21 @@ public class VeryCoolController {
 	}
 
 	@GetMapping("/posthotel")
+    /**
+     *  A route to the form to post your room
+     *  @param model Model
+     */
 	public String postHotelGet(Model model) {
-        System.out.println("GET EGEET GETE GET GET GET");
         model.addAttribute("hotelRoom", new HotelRoom());
 	    return "posthotel";
 	}
 
 	@PostMapping("/posthotel")
+    /**
+     *  A route to post your room to the database
+     *  @param hotelRoom The room to be posted
+     *  @param model Model
+     */
 	public String postHotelSubmit(@ModelAttribute HotelRoom hotelRoom, Model model) {
         Database db = Database.get();
         hotelRoom.isBooked = false;
@@ -133,11 +170,17 @@ public class VeryCoolController {
 	}
 
 	@GetMapping("/home")
+    /**
+     *  The route to the home page
+     */
 	public String home() {
 		return "index";
 	}
 
     @GetMapping("/DEBUG_POPULATE")
+    /**
+     *  The debug route to generate some data
+     */
     public String debugGenerate() {
        Random rng = new Random();
 
